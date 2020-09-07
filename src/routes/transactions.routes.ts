@@ -10,9 +10,17 @@ const transactionsRouter = Router();
 transactionsRouter.get('/', async (request, response) => {
   // TODO
 });
-
+// {
+//   "id": "uuid",
+//   "title": "Salário",
+//   "value": 3000,
+//   "type": "income",
+//   "category": "Alimentação"
+// }
 transactionsRouter.post('/', async (request, response) => {
-  // TODO
+  const { id, title, value, type } = request.body;
+
+  
 });
 
 transactionsRouter.delete('/:id', async (request, response) => {
