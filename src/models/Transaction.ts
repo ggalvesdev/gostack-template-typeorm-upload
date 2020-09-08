@@ -5,14 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
-} from "typeorm";
+  JoinColumn,
+} from 'typeorm';
 
 import Category from './Category';
 
-@Entity("transactions")
+@Entity('transactions')
 class Transaction {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -21,7 +21,6 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  
   @Column()
   value: number;
 
@@ -29,13 +28,13 @@ class Transaction {
   category_id: string;
 
   @ManyToOne(() => Category)
-  @JoinColumn({name: "category_id"})
+  @JoinColumn({ name: 'category_id' })
   category: Category;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ select: false })
   updated_at: Date;
 }
 

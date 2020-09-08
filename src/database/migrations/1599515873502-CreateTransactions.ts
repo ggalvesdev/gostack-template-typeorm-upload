@@ -1,7 +1,9 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTransactions1599515873502 implements MigrationInterface {
-  public async up(queryRunner: QueryRunner): Promise<any> {
+export default class CreateTransactions1599515873502
+  implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.createTable(
       new Table({
         name: 'transactions',
@@ -11,7 +13,7 @@ export class CreateTransactions1599515873502 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
+            default: 'uuid_generate_v4()', // generate uuid automaticaly
           },
           {
             name: 'title',
@@ -19,16 +21,11 @@ export class CreateTransactions1599515873502 implements MigrationInterface {
           },
           {
             name: 'value',
-            type: 'varchar',
+            type: 'numeric',
           },
           {
             name: 'type',
             type: 'varchar',
-          },
-          {
-            name: 'category_id',
-            type: 'uuid',
-            isNullable: true,
           },
           {
             name: 'created_at',
@@ -45,7 +42,7 @@ export class CreateTransactions1599515873502 implements MigrationInterface {
     );
   }
 
-  public async down(queryRunner: QueryRunner): Promise<any> {
+  public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('transactions');
   }
 }
